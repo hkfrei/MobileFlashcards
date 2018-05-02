@@ -1,13 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { setDecks } from "../actions";
-import { fetchDecks } from "../utils/api";
+import { View, Text, StyleSheet } from "react-native";
+import Deck from "./Deck";
+import { setDecks, deleteDeck } from "../actions";
+import { fetchDecks, removeEntry } from "../utils/api";
 class Decks extends React.Component {
+  constructor(props) {
+    super(props);
+    this.removeDeck = this.removeDeck.bind(this);
+  }
   componentDidMount() {
     const { dispatch } = this.props;
     fetchDecks().then(decks => dispatch(setDecks(JSON.parse(decks))));
   }
+
+  removeDeck(key) {
+    // remove from redux state
+    this.props.dispatch(deleteDeck(key));
+    // remove from Async Storage
+    removeEntry(key);
+  }
+
   render() {
     const { decks } = this.props;
     const deckNames = Object.keys(decks);
@@ -16,9 +29,11 @@ class Decks extends React.Component {
         <Text style={styles.h1}>MY DECKS</Text>
         {deckNames.length === 0 && <Text>Please Add some decks....</Text>}
         {deckNames.map(deck => (
-          <TouchableOpacity key={deck} style={styles.deck}>
-            <Text>{decks[deck].title}</Text>
-          </TouchableOpacity>
+          <Deck
+            key={deck}
+            deck={decks[deck]}
+            deleteDeck={() => this.removeDeck(deck)}
+          />
         ))}
       </View>
     );
@@ -41,14 +56,5 @@ const styles = StyleSheet.create({
   },
   h1: {
     marginBottom: 30
-  },
-  deck: {
-    width: 200,
-    height: 100,
-    margin: 10,
-    padding: 10,
-    borderColor: "gray",
-    borderRadius: 20,
-    borderWidth: 1
   }
 });
