@@ -1,13 +1,22 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TabNavigator } from "react-navigation";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import reducer from "./reducers";
 import Decks from "./components/Decks";
 import CreateDeck from "./components/CreateDeck";
 import { Ionicons } from "@expo/vector-icons";
 
+const store = createStore(reducer);
+
 export default class App extends React.Component {
   render() {
-    return <Tabs />;
+    return (
+      <Provider store={store}>
+        <Tabs />
+      </Provider>
+    );
   }
 }
 
