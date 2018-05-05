@@ -2,9 +2,9 @@ import React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-const Deck = ({ deck, deleteDeck }) => {
+const Deck = ({ deck, deleteDeck, onPress }) => {
   return (
-    <TouchableOpacity style={styles.deck}>
+    <TouchableOpacity style={styles.deck} onPress={onPress}>
       <Text style={styles.deckTitle}>{deck.title}</Text>
       <Text>{deck.questions.length} questions</Text>
       <TouchableOpacity style={styles.btnRemove} onPress={deleteDeck}>

@@ -8,28 +8,34 @@ class Decks extends React.Component {
   constructor(props) {
     super(props);
     this.removeDeck = this.removeDeck.bind(this);
+    this.keyExtractor = this.keyExtractor.bind(this);
+    this.onPressItem = this.onPressItem.bind(this);
   }
   componentDidMount() {
     const { dispatch } = this.props;
     fetchDecks().then(decks => dispatch(setDecks(JSON.parse(decks))));
-    console.log(this.props.decks);
   }
 
-  removeDeck(key) {
+  removeDeck = key => {
     // remove from redux state
     this.props.dispatch(deleteDeck(key));
     // remove from Async Storage
     removeEntry(key);
-  }
+  };
 
   keyExtractor = (item, index) => item.title;
 
+  onPressItem = item => {
+    console.log(item);
+    const { navigation } = this.props;
+    navigation.navigate("DeckView", { deck: item });
+  };
+
   render() {
-    const { decks } = this.props;
+    const { decks, navigation } = this.props;
     const deckNames = Object.keys(decks);
     const decksArray = [];
     deckNames.map(deck => decksArray.push(decks[deck]));
-    console.log(decksArray);
     return (
       <View style={styles.container}>
         <Text style={styles.h1}>MY DECKS</Text>
@@ -38,7 +44,11 @@ class Decks extends React.Component {
           data={decksArray}
           keyExtractor={this.keyExtractor}
           renderItem={({ item }) => (
-            <Deck deck={item} deleteDeck={() => this.removeDeck(item.title)} />
+            <Deck
+              deck={item}
+              deleteDeck={() => this.removeDeck(item.title)}
+              onPress={() => this.onPressItem(item)}
+            />
           )}
         />
       </View>
