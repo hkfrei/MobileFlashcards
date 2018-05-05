@@ -18,7 +18,6 @@ const Deck = ({ deck, deleteDeck }) => {
 export default Deck;
 const styles = StyleSheet.create({
   deck: {
-    width: 200,
     margin: 10,
     padding: 10,
     borderColor: "gray",
