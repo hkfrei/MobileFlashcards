@@ -8,14 +8,15 @@ import {
   TouchableOpacity,
   Button
 } from "react-native";
-import { submitDeck } from "../utils/api";
-import { addDeck } from "../actions/decks";
+import { submitDeck, addCardToDeck } from "../utils/api";
+import { addCard } from "../actions/decks";
 
-class CreateDeck extends React.Component {
+class AddCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      deckName: "",
+      question: "",
+      answer: "",
       successMessage: false
     };
 
@@ -23,50 +24,63 @@ class CreateDeck extends React.Component {
   }
 
   displaySuccessMessage() {
-    this.setState({ successMessage: true, deckName: "" });
+    this.setState({ successMessage: true, question: "", answer: "" });
     window.setTimeout(() => this.setState({ successMessage: false }), 2000);
   }
 
   render() {
+    /*Read the key param from the navigation state */
+    const { params } = this.props.navigation.state;
+    const { key } = params;
     return (
       <View style={styles.container}>
+        <Text>Please enter question and answer</Text>
         <TextInput
-          placeholder="Enter a deck name..."
+          placeholder="question..."
           autoFocus
           clearButtonMode="always"
+          multiline={true}
           style={styles.deckName}
-          onChangeText={deckName => this.setState({ deckName })}
-          value={this.state.deckName}
+          onChangeText={question => this.setState({ question })}
+          value={this.state.question}
+        />
+        <TextInput
+          multiline={true}
+          placeholder="answer..."
+          clearButtonMode="always"
+          style={styles.deckName}
+          onChangeText={answer => this.setState({ answer })}
+          value={this.state.answer}
         />
         <TouchableOpacity
           style={styles.btnDefault}
           onPress={() => {
-            const deck = {
-              title: this.state.deckName,
-              questions: []
+            const card = {
+              question: this.state.question,
+              answer: this.state.answer
             };
-
-            // Add to AsyncStorage and then to redux state
-            submitDeck(deck).then(() => {
-              this.props.createDeck(deck);
+            // add to AsyncStorate and then to redux state
+            addCardToDeck(key, card).then(() => {
+              this.props.createCard(key, card);
               this.displaySuccessMessage();
             });
           }}
         >
-          <Text style={styles.btnText}>ADD DECK</Text>
+          <Text style={styles.btnText}>ADD CARD</Text>
         </TouchableOpacity>
         {this.state.successMessage && (
-          <Text style={styles.successMessage}>Deck successfully added</Text>
+          <Text style={styles.successMessage}>Question successfully added</Text>
         )}
       </View>
     );
   }
 }
+
 const mapDispatchToProps = dispatch => ({
-  createDeck: deck => dispatch(addDeck(deck))
+  createCard: card => dispatch(addCard(card))
 });
 
-export default connect(null, mapDispatchToProps)(CreateDeck);
+export default connect(null, mapDispatchToProps)(AddCard);
 
 const styles = StyleSheet.create({
   container: {

@@ -5,8 +5,10 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import reducer from "./reducers";
 import Decks from "./components/Decks";
+import Deck from "./components/Deck";
 import CreateDeck from "./components/CreateDeck";
 import DeckView from "./components/DeckView";
+import AddCard from "./components/AddCard";
 import { Ionicons } from "@expo/vector-icons";
 
 const store = createStore(reducer);
@@ -60,6 +62,12 @@ const MainNavigator = StackNavigator({
     screen: DeckView,
     navigationOptions: {
       title: "Deck View"
+    }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      title: "Add Card"
     }
   }
 });

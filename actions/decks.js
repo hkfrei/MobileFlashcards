@@ -1,8 +1,4 @@
-export const ADD_DECK = "ADD_DECK";
-export const GET_DECKS = "GET_DECKS";
-export const SET_DECKS = "SET_DECKS";
-export const DELETE_DECK = "DELETE_DECK";
-
+import { ADD_DECK, GET_DECKS, SET_DECKS, DELETE_DECK, ADD_CARD } from "./types";
 // action creators
 export const addDeck = deck => ({
   type: ADD_DECK,
@@ -23,4 +19,8 @@ export const setDecks = decks => ({
   decks
 });
 
-
+export const addCard = (key, card) => ({
+  type: ADD_CARD,
+  key: key,
+  card
+});

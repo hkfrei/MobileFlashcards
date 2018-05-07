@@ -1,4 +1,10 @@
-import { ADD_DECK, DELETE_DECK, GET_DECKS, SET_DECKS } from "../actions";
+import {
+  ADD_DECK,
+  DELETE_DECK,
+  GET_DECKS,
+  SET_DECKS,
+  ADD_CARD
+} from "../actions/types";
 
 const initialDecks = {
   deck1: {
@@ -8,7 +14,6 @@ const initialDecks = {
 };
 
 const decks = (state = {}, action) => {
-  console.log(action);
   switch (action.type) {
     case ADD_DECK:
       return {
@@ -23,6 +28,18 @@ const decks = (state = {}, action) => {
       return state;
     case SET_DECKS:
       return action.decks;
+    case ADD_CARD:
+      const oldQuestions = state[action.key].questions;
+      newQuestions = oldQuestions.concat([action.card]);
+      //console.log(newQuestions);
+      return {
+        ...state,
+        [action.key]: {
+          title: action.key,
+          questions: newQuestions
+        }
+      };
+
     default:
       return state;
   }

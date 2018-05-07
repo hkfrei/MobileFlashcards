@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import Deck from "./Deck";
-import { setDecks, deleteDeck } from "../actions";
+import { setDecks, deleteDeck } from "../actions/decks";
 import { fetchDecks, removeEntry } from "../utils/api";
 class Decks extends React.Component {
   constructor(props) {
@@ -17,25 +17,27 @@ class Decks extends React.Component {
   }
 
   removeDeck = key => {
-    // remove from redux state
-    this.props.dispatch(deleteDeck(key));
-    // remove from Async Storage
-    removeEntry(key);
+    // remove from AsyncStorage and then from redux
+    removeEntry(key).then(() => this.props.dispatch(deleteDeck(key)));
   };
 
   keyExtractor = (item, index) => item.title;
 
   onPressItem = item => {
-    console.log(item);
     const { navigation } = this.props;
-    navigation.navigate("DeckView", { deck: item });
+    navigation.navigate("DeckView", {
+      key: item.title
+    });
   };
 
   render() {
     const { decks, navigation } = this.props;
     const deckNames = Object.keys(decks);
     const decksArray = [];
+    // Add all the decks to the Array. We need the Array
+    // in the FlatList component
     deckNames.map(deck => decksArray.push(decks[deck]));
+
     return (
       <View style={styles.container}>
         <Text style={styles.h1}>MY DECKS</Text>
@@ -48,6 +50,7 @@ class Decks extends React.Component {
               deck={item}
               deleteDeck={() => this.removeDeck(item.title)}
               onPress={() => this.onPressItem(item)}
+              reducedView={true}
             />
           )}
         />
