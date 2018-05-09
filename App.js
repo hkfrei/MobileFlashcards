@@ -4,11 +4,12 @@ import { TabNavigator, StackNavigator } from "react-navigation";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import reducer from "./reducers";
-import Decks from "./components/Decks";
+import DeckList from "./components/DeckList";
 import Deck from "./components/Deck";
 import CreateDeck from "./components/CreateDeck";
 import DeckView from "./components/DeckView";
 import AddCard from "./components/AddCard";
+import QuizView from "./components/QuizView";
 import { Ionicons } from "@expo/vector-icons";
 
 const store = createStore(reducer);
@@ -26,7 +27,7 @@ export default class App extends React.Component {
 const Tabs = TabNavigator(
   {
     Decks: {
-      screen: Decks,
+      screen: DeckList,
       navigationOptions: {
         tabBarIcon: () => <Ionicons name="ios-albums-outline" size={25} />,
         title: "Home"
@@ -68,6 +69,12 @@ const MainNavigator = StackNavigator({
     screen: AddCard,
     navigationOptions: {
       title: "Add Card"
+    }
+  },
+  QuizView: {
+    screen: QuizView,
+    navigationOptions: {
+      title: "Quiz"
     }
   }
 });

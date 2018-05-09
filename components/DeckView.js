@@ -18,32 +18,38 @@ class DeckView extends React.Component {
   }
 
   addCard = () => {
-    console.log(this.props);
     const { navigation } = this.props;
     navigation.navigate("AddCard", {
-      key: this.key,
-      deck: this.props.deck
+      key: this.key
     });
   };
 
   startQuiz = () => {
-    console.log("start Quiz");
+    const { navigation } = this.props;
+    navigation.navigate("QuizView", { key: this.key });
   };
   render() {
+    const { deck } = this.props;
     return (
       <View style={styles.container}>
-        <Deck deck={this.props.deck}>
+        <Deck deck={deck}>
           <View>
             <TouchableOpacity style={styles.btnAddCard} onPress={this.addCard}>
-              <Text style={styles.deleteText}>
-                <FontAwesome name="plus" /> Add Card
+              <Text style={styles.btnText}>
+                <FontAwesome name="plus" /> ADD CARD
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btnStart} onPress={this.startQuiz}>
-              <Text style={styles.deleteText}>
-                <FontAwesome name="play" /> Start Quiz
-              </Text>
-            </TouchableOpacity>
+            {/* only display play button when questions are available */}
+            {deck.questions.length && (
+              <TouchableOpacity
+                style={styles.btnStart}
+                onPress={this.startQuiz}
+              >
+                <Text style={styles.btnText}>
+                  <FontAwesome name="play" /> START QUIZ
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </Deck>
       </View>
@@ -65,15 +71,18 @@ const styles = StyleSheet.create({
   btnAddCard: {
     backgroundColor: "#28a745",
     borderRadius: 5,
-    height: 30,
     marginTop: 20,
-    padding: 5
+    padding: 10
   },
   btnStart: {
-    backgroundColor: "#007bff",
+    backgroundColor: "#0070FF",
     borderRadius: 5,
-    height: 30,
     marginTop: 10,
-    padding: 5
+    padding: 10
+  },
+  btnText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
   }
 });

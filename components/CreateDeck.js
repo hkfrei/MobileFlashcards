@@ -30,8 +30,9 @@ class CreateDeck extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.heading}>What's the name of your new deck?</Text>
         <TextInput
-          placeholder="Enter a deck name..."
+          placeholder="Name..."
           autoFocus
           clearButtonMode="always"
           style={styles.deckName}
@@ -71,11 +72,12 @@ export default connect(null, mapDispatchToProps)(CreateDeck);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center"
   },
   heading: {
-    fontSize: 20
+    fontSize: 20,
+    padding: 20,
+    textAlign: "center"
   },
   deckName: {
     borderBottomColor: "gray",

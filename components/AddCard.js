@@ -34,7 +34,7 @@ class AddCard extends React.Component {
     const { key } = params;
     return (
       <View style={styles.container}>
-        <Text>Please enter question and answer</Text>
+        <Text style={styles.heading}>Please enter question and answer</Text>
         <TextInput
           placeholder="question..."
           autoFocus
@@ -77,7 +77,7 @@ class AddCard extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  createCard: card => dispatch(addCard(card))
+  createCard: (key, card) => dispatch(addCard(key, card))
 });
 
 export default connect(null, mapDispatchToProps)(AddCard);
@@ -85,11 +85,12 @@ export default connect(null, mapDispatchToProps)(AddCard);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center"
   },
   heading: {
-    fontSize: 20
+    fontSize: 20,
+    padding: 20,
+    textAlign: "center"
   },
   deckName: {
     borderBottomColor: "gray",

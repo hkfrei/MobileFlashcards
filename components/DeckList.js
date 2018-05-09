@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import Deck from "./Deck";
 import { setDecks, deleteDeck } from "../actions/decks";
 import { fetchDecks, removeEntry } from "../utils/api";
-class Decks extends React.Component {
+class DeckList extends React.Component {
   constructor(props) {
     super(props);
     this.removeDeck = this.removeDeck.bind(this);
@@ -40,7 +40,7 @@ class Decks extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.h1}>MY DECKS</Text>
+        <Text style={styles.h1}>Available Decks</Text>
         {deckNames.length === 0 && <Text>Please Add some decks....</Text>}
         <FlatList
           data={decksArray}
@@ -65,7 +65,7 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-export default connect(mapStateToProps)(Decks);
+export default connect(mapStateToProps)(DeckList);
 
 const styles = StyleSheet.create({
   container: {
@@ -77,6 +77,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 25,
     marginBottom: 10,
-    marginTop: 50
+    marginTop: 30
   }
 });
