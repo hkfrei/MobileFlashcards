@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Modal } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+  Animated
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import StatisticView from "./StatisticView";
@@ -18,6 +25,48 @@ class QuizView extends React.Component {
       modalVisible: false
     };
   }
+
+  componentWillMount() {
+    // create a new new Value which can be animated
+    this.animatedValue = new Animated.Value(0);
+
+    // store the initial value = card displays question
+    this.value = 0;
+
+    // every time the animatedValue changes also this.value must change
+    this.animatedValue.addListener(({ value }) => (this.value = value));
+
+    // create the animation for flipping to front
+    // the value 0 is maped to "0deg" 180 to "180deg"
+    this.frontInterpolate = this.animatedValue.interpolate({
+      inputRange: [0, 180],
+      outputRange: ["0deg", "180deg"]
+    });
+    // create the animation for flipping to back
+    this.backInterpolate = this.animatedValue.interpolate({
+      inputRange: [0, 180],
+      outputRange: ["180deg", "360deg"]
+    });
+  }
+
+  flipCard = () => {
+    if (this.value >= 90) {
+      Animated.spring(this.animatedValue, {
+        toValue: 0,
+        friction: 8,
+        tension: 10
+      }).start();
+      this.toggleAnswer();
+    } else {
+      Animated.spring(this.animatedValue, {
+        toValue: 180,
+        friction: 8,
+        tension: 10
+      }).start();
+      this.toggleAnswer();
+    }
+  };
+
   toggleAnswer = () => {
     this.setState(state => ({
       ...state,
@@ -58,8 +107,14 @@ class QuizView extends React.Component {
       return;
     }
     // Not the last question
+
+    // flip the card if answer is visible
+    if (!this.state.question) {
+      this.flipCard();
+    }
     this.setState(state => ({
       ...state,
+      ["question"]: true, // always display the question
       ["score"]: state.score + point,
       ["attempt"]: state.attempt + 1,
       ["percents"]: this.calcPercents(state.score, this.questionsCount)
@@ -71,8 +126,16 @@ class QuizView extends React.Component {
   };
 
   render() {
-    console.log(this.props);
+    // the calculated (interpolated) styles to add to the Animated.View
+    const frontAnimatedStyle = {
+      transform: [{ rotateY: this.frontInterpolate }]
+    };
+    const backAnimatedStyle = {
+      transform: [{ rotateY: this.backInterpolate }]
+    };
+
     const { questions } = this.props.deck;
+
     return (
       <View style={styles.quizContainer}>
         <Text>
@@ -83,13 +146,19 @@ class QuizView extends React.Component {
         <Text>
           {this.calcPercents(this.state.score, this.questionsCount)} % correct
         </Text>
-        <View style={styles.questionContainer}>
+        <Animated.View style={[frontAnimatedStyle, styles.flipCard]}>
           <Text style={styles.question}>
-            {this.state.question && questions[this.state.attempt].question}
-            {!this.state.question && questions[this.state.attempt].answer}
+            {questions[this.state.attempt].question}
           </Text>
-        </View>
-        <TouchableOpacity onPress={this.toggleAnswer}>
+        </Animated.View>
+        <Animated.View
+          style={[backAnimatedStyle, styles.flipCard, styles.flipCardBack]}
+        >
+          <Text style={styles.question}>
+            {questions[this.state.attempt].answer}
+          </Text>
+        </Animated.View>
+        <TouchableOpacity onPress={this.flipCard}>
           {this.state.question && (
             <Text style={styles.answer}>Show answer</Text>
           )}
@@ -130,12 +199,26 @@ const styles = StyleSheet.create({
   quizContainer: {
     padding: 20
   },
-  questionContainer: {
+  flipCard: {
     alignSelf: "center",
     alignItems: "center",
+    backgroundColor: "#ffffff",
+    backfaceVisibility: "hidden",
     minHeight: 150,
-    marginTop: 30
+    marginTop: 30,
+    padding: 15,
+    width: 250,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2
   },
+
+  flipCardBack: {
+    position: "absolute",
+    top: 85
+  },
+
   question: {
     fontSize: 20
   },
