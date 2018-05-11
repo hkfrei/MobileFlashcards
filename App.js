@@ -11,10 +11,15 @@ import DeckView from "./components/DeckView";
 import AddCard from "./components/AddCard";
 import QuizView from "./components/QuizView";
 import { Ionicons } from "@expo/vector-icons";
+import { setLocalNotification } from "./utils/notification";
 
 const store = createStore(reducer);
 
 export default class App extends React.Component {
+  componentDidMount() {
+    // ask for permission to send notifications
+    setLocalNotification();
+  }
   render() {
     return (
       <Provider store={store}>
