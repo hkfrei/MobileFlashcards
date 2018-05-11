@@ -53,7 +53,7 @@ class AddCard extends React.Component {
           value={this.state.answer}
         />
         <TouchableOpacity
-          style={styles.btnDefault}
+          style={[styles.btnDefault, styles.btnGreen]}
           onPress={() => {
             const card = {
               question: this.state.question,
@@ -67,6 +67,14 @@ class AddCard extends React.Component {
           }}
         >
           <Text style={styles.btnText}>ADD CARD</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.btnDefault}
+          onPress={() => {
+            this.props.navigation.goBack();
+          }}
+        >
+          <Text style={styles.btnText}>BACK TO DECK</Text>
         </TouchableOpacity>
         {this.state.successMessage && (
           <Text style={styles.successMessage}>Question successfully added</Text>
@@ -103,6 +111,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#2089dc",
     borderRadius: 5,
     padding: 10,
+    marginTop: 15
+  },
+  btnGreen: {
+    backgroundColor: "#249d3d",
     marginTop: 50
   },
   btnText: {

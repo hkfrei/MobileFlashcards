@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import Deck from "./Deck";
 import { FontAwesome } from "@expo/vector-icons";
 /*
@@ -25,6 +25,14 @@ class DeckView extends React.Component {
   };
 
   startQuiz = () => {
+    // check if there are any questions
+    if (!this.props.deck.questions.length) {
+      Alert.alert(
+        "No questions available",
+        "Please add some cards to the deck."
+      );
+      return;
+    }
     const { navigation } = this.props;
     navigation.navigate("QuizView", { key: this.key });
   };
@@ -39,17 +47,11 @@ class DeckView extends React.Component {
                 <FontAwesome name="plus" /> ADD CARD
               </Text>
             </TouchableOpacity>
-            {/* only display play button when questions are available */}
-            {deck.questions.length && (
-              <TouchableOpacity
-                style={styles.btnStart}
-                onPress={this.startQuiz}
-              >
-                <Text style={styles.btnText}>
-                  <FontAwesome name="play" /> START QUIZ
-                </Text>
-              </TouchableOpacity>
-            )}
+            <TouchableOpacity style={styles.btnStart} onPress={this.startQuiz}>
+              <Text style={styles.btnText}>
+                <FontAwesome name="play" /> START QUIZ
+              </Text>
+            </TouchableOpacity>
           </View>
         </Deck>
       </View>

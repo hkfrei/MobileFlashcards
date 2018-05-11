@@ -84,6 +84,11 @@ class QuizView extends React.Component {
     });
   };
 
+  backToDeck = () => {
+    this.resetQuiz();
+    this.props.navigation.goBack();
+  };
+
   processAnswer = correct => {
     // All questions ansered
     if (this.state.finished) {
@@ -141,7 +146,7 @@ class QuizView extends React.Component {
         <Text>
           Question: {this.state.attempt + 1} / {questions.length}
         </Text>
-        <Text>Remaining: {questions.length - this.state.attempt}</Text>
+        <Text>Remaining: {questions.length - this.state.attempt - 1}</Text>
         <Text>Correct answers: {this.state.score}</Text>
         <Text>
           {this.calcPercents(this.state.score, this.questionsCount)} % correct
@@ -183,6 +188,7 @@ class QuizView extends React.Component {
           statistic={this.state}
           modalVisible={this.state.modalVisible}
           resetQuiz={this.resetQuiz}
+          backToDeck={this.backToDeck}
         />
       </View>
     );

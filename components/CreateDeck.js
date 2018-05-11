@@ -54,7 +54,7 @@ class CreateDeck extends React.Component {
             });
           }}
         >
-          <Text style={styles.btnText}>ADD DECK</Text>
+          <Text style={styles.btnText}>CREATE DECK</Text>
         </TouchableOpacity>
         {this.state.successMessage && (
           <Text style={styles.successMessage}>Deck successfully added</Text>
@@ -63,8 +63,11 @@ class CreateDeck extends React.Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => ({
-  createDeck: deck => dispatch(addDeck(deck))
+const mapDispatchToProps = (dispatch, props) => ({
+  createDeck: deck => {
+    dispatch(addDeck(deck));
+    props.navigation.navigate("DeckView", { key: deck.title });
+  }
 });
 
 export default connect(null, mapDispatchToProps)(CreateDeck);

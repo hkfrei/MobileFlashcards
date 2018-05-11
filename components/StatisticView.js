@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Modal } from "react-native";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 
 const StatisticView = props => {
-  const { modalVisible, resetQuiz, statistic } = props;
+  const { modalVisible, resetQuiz, backToDeck, statistic } = props;
   return (
     <Modal
       animationType="slide"
@@ -16,7 +16,7 @@ const StatisticView = props => {
       <View style={styles.statistic}>
         <View>
           <Ionicons style={styles.statImage} name="ios-stats" size={50} />
-          <Text style={styles.titleh1}>STATISTIC</Text>
+          <Text style={styles.titleh1}>STATISTICS</Text>
           <Text style={styles.statisticText}>
             Total: {statistic.attempt + 1} questions
           </Text>
@@ -37,8 +37,14 @@ const StatisticView = props => {
             )}
           </Text>
 
-          <TouchableOpacity style={styles.btnDefault} onPress={resetQuiz}>
-            <Text style={styles.btnText}>BACK TO QUIZ</Text>
+          <TouchableOpacity
+            style={[styles.btnDefault, styles.btnGreen]}
+            onPress={resetQuiz}
+          >
+            <Text style={styles.btnText}>RESTART QUIZ</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btnDefault} onPress={backToDeck}>
+            <Text style={styles.btnText}>BACK TO DECK</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -56,6 +62,9 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
     width: 200
+  },
+  btnGreen: {
+    backgroundColor: "#249d3d"
   },
   btnText: {
     color: "white",
