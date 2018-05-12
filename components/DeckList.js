@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import Deck from "./Deck";
 import { setDecks, deleteDeck } from "../actions/decks";
 import { fetchDecks, removeEntry } from "../utils/api";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 class DeckList extends React.Component {
   constructor(props) {
     super(props);
@@ -32,6 +33,18 @@ class DeckList extends React.Component {
 
   render() {
     const { decks, navigation } = this.props;
+    if (!decks) {
+      return (
+        <View style={styles.container}>
+          <MaterialCommunityIcons
+            name="cards"
+            size={50}
+            style={styles.center}
+          />
+          <Text style={styles.h1}>Please create some decks</Text>
+        </View>
+      );
+    }
     const deckNames = Object.keys(decks);
     const decksArray = [];
     // Add all the decks to the Array. We need the Array
@@ -41,7 +54,17 @@ class DeckList extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.h1}>Available Decks</Text>
-        {deckNames.length === 0 && <Text>Please Add some decks....</Text>}
+        {deckNames.length === 0 && (
+          <View style={styles.container}>
+            <MaterialCommunityIcons
+              name="cards"
+              size={50}
+              style={styles.center}
+            />
+            <Text style={styles.h1}>No decks available</Text>
+            <Text style={styles.h1}>Please create some decks</Text>
+          </View>
+        )}
         <FlatList
           data={decksArray}
           keyExtractor={this.keyExtractor}
@@ -78,5 +101,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginBottom: 10,
     marginTop: 30
+  },
+  center: {
+    alignSelf: "center"
   }
 });
