@@ -23,6 +23,12 @@ function createNotification() {
     body: "You didn't train until now. Answer some questions!",
     ios: {
       sound: true
+    },
+    android: {
+      sound: true,
+      priority: "high",
+      sticky: false,
+      vibrate: true
     }
   };
 }

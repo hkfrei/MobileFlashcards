@@ -127,7 +127,7 @@ class QuizView extends React.Component {
   };
 
   calcPercents = (score, questionsCount) => {
-    return score / questionsCount * 100;
+    return parseInt(score / questionsCount * 100);
   };
 
   render() {
