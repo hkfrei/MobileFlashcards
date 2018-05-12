@@ -15,16 +15,8 @@ class CreateDeck extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      deckName: "",
-      successMessage: false
+      deckName: ""
     };
-
-    this.displaySuccessMessage = this.displaySuccessMessage.bind(this);
-  }
-
-  displaySuccessMessage() {
-    this.setState({ successMessage: true, deckName: "" });
-    window.setTimeout(() => this.setState({ successMessage: false }), 2000);
   }
 
   render() {
@@ -50,7 +42,6 @@ class CreateDeck extends React.Component {
             // Add to AsyncStorage and then to redux state
             submitDeck(deck).then(() => {
               this.props.createDeck(deck);
-              this.displaySuccessMessage();
             });
           }}
         >

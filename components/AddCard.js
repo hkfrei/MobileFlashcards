@@ -22,10 +22,12 @@ class AddCard extends React.Component {
 
     this.displaySuccessMessage = this.displaySuccessMessage.bind(this);
   }
+  componentDidMount() {
+    this.setState({ ...this.state, ["successMessage"]: false });
+  }
 
   displaySuccessMessage() {
     this.setState({ successMessage: true, question: "", answer: "" });
-    window.setTimeout(() => this.setState({ successMessage: false }), 2000);
   }
 
   render() {
@@ -41,8 +43,13 @@ class AddCard extends React.Component {
           clearButtonMode="always"
           multiline={true}
           style={styles.deckName}
-          onChangeText={question => this.setState({ question })}
+          onChangeText={question =>
+            this.setState({ question, successMessage: false })
+          }
           value={this.state.question}
+          ref={questionInput => {
+            this.questionInput = questionInput;
+          }}
         />
         <TextInput
           multiline={true}
@@ -63,6 +70,7 @@ class AddCard extends React.Component {
             addCardToDeck(key, card).then(() => {
               this.props.createCard(key, card);
               this.displaySuccessMessage();
+              this.questionInput.focus();
             });
           }}
         >
