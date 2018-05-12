@@ -33,18 +33,7 @@ class DeckList extends React.Component {
 
   render() {
     const { decks, navigation } = this.props;
-    if (!decks) {
-      return (
-        <View style={styles.container}>
-          <MaterialCommunityIcons
-            name="cards"
-            size={50}
-            style={styles.center}
-          />
-          <Text style={styles.h1}>Please create some decks</Text>
-        </View>
-      );
-    }
+
     const deckNames = Object.keys(decks);
     const decksArray = [];
     // Add all the decks to the Array. We need the Array
@@ -54,6 +43,8 @@ class DeckList extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.h1}>Available Decks</Text>
+
+        {/* Case when localStorage returns an empty Deck array */}
         {deckNames.length === 0 && (
           <View style={styles.container}>
             <MaterialCommunityIcons
@@ -65,6 +56,8 @@ class DeckList extends React.Component {
             <Text style={styles.h1}>Please create some decks</Text>
           </View>
         )}
+
+        {/* Normal case when some decks are available */}
         <FlatList
           data={decksArray}
           keyExtractor={this.keyExtractor}

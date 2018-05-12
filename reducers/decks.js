@@ -27,7 +27,11 @@ const decks = (state = {}, action) => {
     case GET_DECKS:
       return state;
     case SET_DECKS:
-      return action.decks;
+      if (action.decks) {
+        return action.decks;
+      } else {
+        return state;
+      }
     case ADD_CARD:
       const oldQuestions = state[action.key].questions;
       newQuestions = oldQuestions.concat([action.card]);
