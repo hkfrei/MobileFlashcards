@@ -42,6 +42,7 @@ class CreateDeck extends React.Component {
             // Add to AsyncStorage and then to redux state
             submitDeck(deck).then(() => {
               this.props.createDeck(deck);
+              this.setState({ deckName: "" });
             });
           }}
         >
