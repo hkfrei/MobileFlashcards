@@ -208,9 +208,10 @@ const styles = StyleSheet.create({
   flipCard: {
     alignSelf: "center",
     alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#ffffff",
     backfaceVisibility: "hidden",
-    minHeight: 150,
+    minHeight: 250,
     marginTop: 30,
     padding: 15,
     width: 250,
