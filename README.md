@@ -17,7 +17,7 @@ git clone https://github.com/hkfrei/MobileFlashcards.git
 Enter the newly created 'MobileFlashcards' folder
 
 ```
-cd MobileFlascards
+cd MobileFlashcards
 ```
 
 ## Installation
@@ -74,7 +74,7 @@ Like `yarn start`, but also attempts to open your app in the iOS Simulator if yo
 yarn run android
 ```
 
-Like `yarn start`, but also attempts to open your app on a connected Android device or emulator. Requires an installation of Android build tools (see [React Native docs](https://facebook.github.io/react-native/docs/getting-started.html) for detailed setup). We also recommend installing Genymotion as your Android emulator. Once you've finished setting up the native build environment, there are two options for making the right copy of `adb` available to Create React Native App:
+Like `yarn start`, but also attempts to open your app on a connected Android device or emulator. Requires an installation of Android build tools (see [React Native docs](https://facebook.github.io/react-native/docs/getting-started.html) for detailed setup).
 
 ## Coding style
 
