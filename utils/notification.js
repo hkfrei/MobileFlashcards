@@ -53,7 +53,7 @@ export function setLocalNotification() {
               let tomorrow = new Date();
               // Set the date tomorrow at 18.00
               tomorrow.setDate(tomorrow.getDate() + 1);
-              tomorrow.setHours(18);
+              tomorrow.setHours(17);
               tomorrow.setMinutes(0);
 
               // Schedule a notification for tomorrow 18.00

@@ -10,6 +10,10 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import StatisticView from "./StatisticView";
+import {
+  clearLocalNotification,
+  setLocalNotification
+} from "../utils/notification";
 
 class QuizView extends React.Component {
   constructor(props) {
@@ -87,6 +91,11 @@ class QuizView extends React.Component {
   backToDeck = () => {
     this.resetQuiz();
     this.props.navigation.goBack();
+    /*
+    * remove scheduled notification for today
+    * and add a new notification for tomorrow
+    */
+    clearLocalNotification().then(setLocalNotification);
   };
 
   processAnswer = correct => {

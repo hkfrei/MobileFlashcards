@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Button
+  Button,
+  Alert
 } from "react-native";
 import { submitDeck, addCardToDeck } from "../utils/api";
 import { addCard } from "../actions/decks";
@@ -62,6 +63,13 @@ class AddCard extends React.Component {
         <TouchableOpacity
           style={[styles.btnDefault, styles.btnGreen]}
           onPress={() => {
+            if (!this.state.question || !this.state.answer) {
+              Alert.alert(
+                "Invalid values",
+                "Please enter a valid question and answer."
+              );
+              return;
+            }
             const card = {
               question: this.state.question,
               answer: this.state.answer

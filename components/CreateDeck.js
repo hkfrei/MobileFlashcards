@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Button
+  Button,
+  Alert
 } from "react-native";
 import { submitDeck } from "../utils/api";
 import { addDeck } from "../actions/decks";
@@ -17,35 +18,37 @@ class CreateDeck extends React.Component {
     this.state = {
       deckName: ""
     };
+    this.addDeck = this.addDeck.bind(this);
   }
+  addDeck = () => {
+    if (!this.state.deckName) {
+      Alert.alert("Invalid Value", "Please enter a valid deck name.");
+      return;
+    }
 
+    const deck = {
+      title: this.state.deckName,
+      questions: []
+    };
+
+    // Add to AsyncStorage and then to redux state
+    submitDeck(deck).then(() => {
+      this.props.createDeck(deck);
+      this.setState({ deckName: "" });
+    });
+  };
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.heading}>What's the name of your new deck?</Text>
         <TextInput
           placeholder="Name..."
-          autoFocus
           clearButtonMode="always"
           style={styles.deckName}
           onChangeText={deckName => this.setState({ deckName })}
           value={this.state.deckName}
         />
-        <TouchableOpacity
-          style={styles.btnDefault}
-          onPress={() => {
-            const deck = {
-              title: this.state.deckName,
-              questions: []
-            };
-
-            // Add to AsyncStorage and then to redux state
-            submitDeck(deck).then(() => {
-              this.props.createDeck(deck);
-              this.setState({ deckName: "" });
-            });
-          }}
-        >
+        <TouchableOpacity style={styles.btnDefault} onPress={this.addDeck}>
           <Text style={styles.btnText}>CREATE DECK</Text>
         </TouchableOpacity>
         {this.state.successMessage && (

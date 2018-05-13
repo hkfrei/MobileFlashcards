@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { View, Text, StyleSheet, FlatList, AsyncStorage } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import Deck from "./Deck";
 import { setDecks, deleteDeck } from "../actions/decks";
 import { fetchDecks, removeEntry } from "../utils/api";
-import { Entypo } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 class DeckList extends React.Component {
   constructor(props) {
     super(props);
@@ -43,8 +43,7 @@ class DeckList extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.h1}>Your decks</Text>
-        <Entypo name="documents" size={50} style={styles.center} />
-
+        <Ionicons name="ios-albums-outline" size={50} style={styles.center} />
         {/* Case when localStorage returns an empty Deck array */}
         {deckNames.length === 0 && (
           <View style={styles.container}>

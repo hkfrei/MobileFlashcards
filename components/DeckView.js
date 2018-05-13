@@ -3,10 +3,6 @@ import { connect } from "react-redux";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import Deck from "./Deck";
 import { FontAwesome } from "@expo/vector-icons";
-import {
-  clearLocalNotification,
-  setLocalNotification
-} from "../utils/notification";
 /*
 * It is necessary to make this a statefull
 * component because if we transport the
@@ -37,11 +33,6 @@ class DeckView extends React.Component {
       );
       return;
     }
-
-    /* remove scheduled notification for today
-    *  and add a new notification for tomorrow
-    */
-    clearLocalNotification().then(setLocalNotification);
 
     const { navigation } = this.props;
     navigation.navigate("QuizView", { key: this.key });
