@@ -42,8 +42,9 @@ class DeckList extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.h1}>Your decks</Text>
-        <Ionicons name="ios-albums-outline" size={50} style={styles.center} />
+        <View style={styles.title}>
+          <Text style={styles.h1}>AVAILABLE DECKS</Text>
+        </View>
         {/* Case when localStorage returns an empty Deck array */}
         {deckNames.length === 0 && (
           <View style={styles.container}>
@@ -84,11 +85,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "stretch"
   },
+  title: {
+    alignItems: "stretch",
+    backgroundColor: "gainsboro",
+    padding: 15,
+    marginBottom: 20
+  },
   h1: {
     alignSelf: "center",
-    fontSize: 25,
-    marginBottom: 10,
-    marginTop: 30
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "gray"
   },
   center: {
     alignSelf: "center"

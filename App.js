@@ -23,31 +23,67 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <MainNavigator />
+        <Tabs />
       </Provider>
     );
   }
 }
 
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: DeckList,
+    navigationOptions: {
+      title: "HOME"
+    }
+  },
+  DeckView: {
+    screen: DeckView,
+    navigationOptions: {
+      title: "DECK VIEW"
+    }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      title: "ADD CARD"
+    }
+  },
+  QuizView: {
+    screen: QuizView,
+    navigationOptions: {
+      title: "QUIZ"
+    }
+  }
+});
+
+const CreateDeckNavigator = StackNavigator({
+  CreateDeck: {
+    screen: CreateDeck,
+    navigationOptions: {
+      title: "ADD DECK"
+    }
+  }
+});
+
 const Tabs = TabNavigator(
   {
-    Decks: {
-      screen: DeckList,
+    Home: {
+      screen: MainNavigator,
       navigationOptions: {
         tabBarIcon: () => <Ionicons name="ios-albums-outline" size={25} />,
-        title: "Home"
+        title: "DECK LIST"
       }
     },
     CreateDeck: {
-      screen: CreateDeck,
+      screen: CreateDeckNavigator,
       navigationOptions: {
-        title: "Create Deck",
-        tabBarIcon: () => <Ionicons name="ios-create-outline" size={25} />
+        tabBarIcon: () => <Ionicons name="ios-create-outline" size={25} />,
+        title: "CREATE DECK"
       }
     }
   },
   {
-    initalRouteName: "Decks",
+    initalRouteName: "Home",
     tabBarOptions: {
       activeTintColor: "tomato",
       style: {
@@ -59,27 +95,3 @@ const Tabs = TabNavigator(
     }
   }
 );
-
-const MainNavigator = StackNavigator({
-  Home: {
-    screen: Tabs
-  },
-  DeckView: {
-    screen: DeckView,
-    navigationOptions: {
-      title: "Deck View"
-    }
-  },
-  AddCard: {
-    screen: AddCard,
-    navigationOptions: {
-      title: "Add Card"
-    }
-  },
-  QuizView: {
-    screen: QuizView,
-    navigationOptions: {
-      title: "Quiz"
-    }
-  }
-});
