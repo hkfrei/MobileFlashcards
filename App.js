@@ -84,6 +84,8 @@ const Tabs = TabNavigator(
   },
   {
     initalRouteName: "Home",
+    animationEnabled: true,
+    swipeEnabled: true,
     tabBarOptions: {
       activeTintColor: "tomato",
       style: {
