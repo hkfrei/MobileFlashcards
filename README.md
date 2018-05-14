@@ -1,6 +1,6 @@
 # Mobile Flashcards
 
-This app allows to study collections of flashcards. Users are able to create different categories of flashcards called "decks", add flashcards to those decks, then take quizzes on those decks. It has only been tested on the **IOS** plattform and is therefore optimized for it.
+This app allows to study collections of flashcards. Users are able to create different categories of flashcards called "decks", add flashcards to those decks, then take quizzes on those decks. It has only been tested on the **IOS** platform and is therefore optimized for it.
 
 ## Prerequisites
 
