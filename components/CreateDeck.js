@@ -42,6 +42,7 @@ class CreateDeck extends React.Component {
       <View style={styles.container}>
         <Text style={styles.heading}>What's the name of your new deck?</Text>
         <TextInput
+          autoFocus={true}
           placeholder="Name..."
           clearButtonMode="always"
           style={styles.deckName}

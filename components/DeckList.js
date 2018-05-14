@@ -1,6 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity
+} from "react-native";
 import Deck from "./Deck";
 import { setDecks, deleteDeck } from "../actions/decks";
 import { fetchDecks, removeEntry } from "../utils/api";
@@ -50,6 +56,12 @@ class DeckList extends React.Component {
           <View style={styles.container}>
             <Text style={styles.h1}>No decks available</Text>
             <Text style={styles.h1}>Please create some decks</Text>
+            <TouchableOpacity
+              style={styles.btnDefault}
+              onPress={() => this.props.navigation.navigate("CreateDeck")}
+            >
+              <Text style={styles.btnText}>CREATE NEW DECK</Text>
+            </TouchableOpacity>
           </View>
         )}
 
@@ -84,6 +96,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "stretch"
+  },
+  btnDefault: {
+    alignSelf: "center",
+    backgroundColor: "#2089dc",
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 50,
+    width: 200
+  },
+  btnText: {
+    alignSelf: "center",
+    color: "white",
+    fontWeight: "bold"
   },
   title: {
     alignItems: "stretch",
