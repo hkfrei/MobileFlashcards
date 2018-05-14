@@ -48,7 +48,7 @@ Runs your app in development mode.
 After you get prompted for a choice where to run the app, type **i** to run it in the iOS Simulator if you're on a Mac and have it installed (via Xcode).
 otherwise you can also open it in the [Expo app](https://expo.io) on your phone.
 
-In both cases it will reload if you save edits to your files, and you will see build errors and logs in the terminal. For this to work properly, you phone needs to be in the same network as your development machine.
+In both cases it will reload if you save edits to your files, and you will see build errors and logs in the terminal. For this to work properly, your phone needs to be in the same network as your development machine.
 
 Sometimes you may need to reset or clear the React Native packager's cache. To do so, you can pass the `--reset-cache` flag to the start script:
 
@@ -96,3 +96,7 @@ This is just a project for completing the React course at Udacity. Contributing 
 
 * [React Community](https://github.com/react-community/create-react-native-app) for starter template.
 * [prettier](https://prettier.io/) the awesome code formatter.
+
+## License
+
+* [MIT](https://github.com/hkfrei/MobileFlashcards/blob/master/LICENSE)
