@@ -64,8 +64,8 @@ class AddCard extends React.Component {
               return;
             }
             const card = {
-              question: this.state.question,
-              answer: this.state.answer
+              question: this.state.question.trim(),
+              answer: this.state.answer.trim()
             };
             // add to AsyncStorate and then to redux state
             addCardToDeck(key, card).then(() => {

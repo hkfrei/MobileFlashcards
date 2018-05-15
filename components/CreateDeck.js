@@ -27,7 +27,7 @@ class CreateDeck extends React.Component {
     }
 
     const deck = {
-      title: this.state.deckName,
+      title: this.state.deckName.trim(),
       questions: []
     };
 
