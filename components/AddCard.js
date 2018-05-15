@@ -56,7 +56,9 @@ class AddCard extends React.Component {
         <TouchableOpacity
           style={[styles.btnDefault, styles.btnGreen]}
           onPress={() => {
-            if (!this.state.question || !this.state.answer) {
+            const question = this.state.question.trim();
+            const answer = this.state.answer.trim();
+            if (!question || !answer) {
               Alert.alert(
                 "Invalid values",
                 "Please enter a valid question and answer."
@@ -64,8 +66,8 @@ class AddCard extends React.Component {
               return;
             }
             const card = {
-              question: this.state.question.trim(),
-              answer: this.state.answer.trim()
+              question: question,
+              answer: answer
             };
             // add to AsyncStorate and then to redux state
             addCardToDeck(key, card).then(() => {

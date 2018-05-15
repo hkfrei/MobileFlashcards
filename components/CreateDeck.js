@@ -21,13 +21,14 @@ class CreateDeck extends React.Component {
     this.addDeck = this.addDeck.bind(this);
   }
   addDeck = () => {
-    if (!this.state.deckName) {
+    const name = this.state.deckName.trim();
+    if (!name) {
       Alert.alert("Invalid Value", "Please enter a valid deck name.");
       return;
     }
 
     const deck = {
-      title: this.state.deckName.trim(),
+      title: name,
       questions: []
     };
 
