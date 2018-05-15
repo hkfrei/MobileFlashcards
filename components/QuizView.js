@@ -110,13 +110,10 @@ class QuizView extends React.Component {
     if (attempt === this.questionsCount) {
       this.setState(state => ({
         ...state,
-        ["score"]: state.score + point,
-        ["finished"]: true,
-        ["modalVisible"]: true,
-        ["percents"]: this.calcPercents(
-          state.score + point,
-          this.questionsCount
-        )
+        score: state.score + point,
+        finished: true,
+        modalVisible: true,
+        percents: this.calcPercents(state.score + point, this.questionsCount)
       }));
       return;
     }
