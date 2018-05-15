@@ -31,17 +31,17 @@ class QuizView extends React.Component {
   }
 
   componentWillMount() {
-    // create a new new Value which can be animated
+    // create a new new value which can be animated
     this.animatedValue = new Animated.Value(0);
 
-    // store the initial value = card displays question
+    // store the initial value === card displays question
     this.value = 0;
 
     // every time the animatedValue changes also this.value must change
     this.animatedValue.addListener(({ value }) => (this.value = value));
 
     // create the animation for flipping to front
-    // the value 0 is maped to "0deg" 180 to "180deg"
+    // the value 0 is maped to "0deg", 180 to "180deg"
     this.frontInterpolate = this.animatedValue.interpolate({
       inputRange: [0, 180],
       outputRange: ["0deg", "180deg"]
@@ -99,7 +99,7 @@ class QuizView extends React.Component {
   };
 
   processAnswer = correct => {
-    // All questions ansered
+    // All questions answered
     if (this.state.finished) {
       return;
     }
@@ -118,7 +118,6 @@ class QuizView extends React.Component {
       return;
     }
     // Not the last question
-
     // flip the card if answer is visible
     if (!this.state.question) {
       this.flipCard();

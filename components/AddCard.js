@@ -25,7 +25,7 @@ class AddCard extends React.Component {
   }
 
   render() {
-    /*Read the key param from the navigation state */
+    //Read the key param from the navigation state
     const { params } = this.props.navigation.state;
     const { key } = params;
     return (

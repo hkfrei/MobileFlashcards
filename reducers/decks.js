@@ -21,7 +21,7 @@ const decks = (state = {}, action) => {
         [action.deck.title]: action.deck
       };
     case DELETE_DECK:
-      const decks = Object.assign({}, state);
+      const decks = { ...state }; //Object deep copy
       delete decks[action.key];
       return decks;
     case GET_DECKS:
