@@ -17,18 +17,11 @@ class AddCard extends React.Component {
     super(props);
     this.state = {
       question: "",
-      answer: "",
-      successMessage: false
+      answer: ""
     };
-
-    this.displaySuccessMessage = this.displaySuccessMessage.bind(this);
   }
   componentDidMount() {
-    this.setState({ ...this.state, ["successMessage"]: false });
-  }
-
-  displaySuccessMessage() {
-    this.setState({ successMessage: true, question: "", answer: "" });
+    this.setState({ ...this.state });
   }
 
   render() {
@@ -40,7 +33,7 @@ class AddCard extends React.Component {
         <Text style={styles.heading}>Please enter question and answer</Text>
         <TextInput
           placeholder="question..."
-          autoFocus
+          autoFocus={true}
           clearButtonMode="always"
           multiline={true}
           style={styles.deckName}
@@ -77,8 +70,8 @@ class AddCard extends React.Component {
             // add to AsyncStorate and then to redux state
             addCardToDeck(key, card).then(() => {
               this.props.createCard(key, card);
-              this.displaySuccessMessage();
-              this.questionInput.focus();
+
+              this.props.navigation.goBack();
             });
           }}
         >
@@ -92,9 +85,6 @@ class AddCard extends React.Component {
         >
           <Text style={styles.btnText}>BACK TO DECK</Text>
         </TouchableOpacity>
-        {this.state.successMessage && (
-          <Text style={styles.successMessage}>Question successfully added</Text>
-        )}
       </View>
     );
   }
